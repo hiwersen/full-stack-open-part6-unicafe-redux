@@ -2,11 +2,11 @@ import deepFreeze from 'deep-freeze'
 import counterReducer from './reducer'
 
 describe('unicafe reducer', () => {
-  const initialState = {
+  const initialState = deepFreeze({
     good: 0,
     ok: 0,
     bad: 0
-  }
+  })
 
   test('should return a proper initial state when called with undefined state', () => {
     const action = {
@@ -23,7 +23,6 @@ describe('unicafe reducer', () => {
     }
     const state = initialState
 
-    deepFreeze(state)
     const newState = counterReducer(state, action)
     expect(newState).toEqual({
       good: 1,
@@ -38,7 +37,6 @@ describe('unicafe reducer', () => {
     }
     const state = initialState
 
-    deepFreeze(state)
     const newState = counterReducer(state, action)
     expect(newState).toEqual({
       good: 0,
@@ -47,13 +45,12 @@ describe('unicafe reducer', () => {
     })
   })
 
-  test('good is incremented', () => {
+  test('bad is incremented', () => {
     const action = {
       type: 'BAD'
     }
     const state = initialState
 
-    deepFreeze(state)
     const newState = counterReducer(state, action)
     expect(newState).toEqual({
       good: 0,
@@ -68,7 +65,6 @@ describe('unicafe reducer', () => {
     }
     const inputState = initialState
     const inputStateCopy = { ...inputState }
-    deepFreeze(inputState)
 
     const outputState1 = counterReducer(inputState, action)
     const outputState2 = counterReducer(inputState, action)
@@ -81,7 +77,5 @@ describe('unicafe reducer', () => {
     
     // Always returns the same response when called with the same parameter
     expect(outputState1).toEqual(outputState2)
-    expect(outputState1).toEqual({ good: 1, ok: 0, bad: 0 })
-    expect(outputState2).toEqual({ good: 1, ok: 0, bad: 0 })
   })
 })

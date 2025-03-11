@@ -5,8 +5,11 @@ const initialState = {
 }
 
 const counterReducer = (state = initialState, action) => {
-  console.log('action ---------------:', action)
-  console.log('input state ----------:', state)
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('action ---------------:', action)
+    console.log('input state ----------:', state)
+  }
+  
   switch (action.type) {
     case 'GOOD':
       return { ...state, good: state.good + 1 }
